@@ -1,9 +1,9 @@
-import { Box, Flex, Grid, GridItem, IconButton, Text } from '@chakra-ui/react';
+import { Flex, Grid, GridItem, IconButton, Text } from '@chakra-ui/react';
 import Head from 'next/head';
 import client from '../lib/apollo-client';
 import queries from '../queries/queries';
 import { HiOutlineMenuAlt1 } from 'react-icons/hi';
-import BlocksBuilder from '../builders/BlocksBuilder';
+import BlocksBuilder from '../components/builders/BlocksBuilder';
 
 interface HomeProps {
 	sections: any;
@@ -11,8 +11,6 @@ interface HomeProps {
 }
 
 const Home = ({ sections, socialMedias }: HomeProps) => {
-	console.log(sections);
-
 	return (
 		<>
 			<Head>

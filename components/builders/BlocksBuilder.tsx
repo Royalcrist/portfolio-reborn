@@ -7,8 +7,8 @@
 
 import { useRouter } from 'next/router';
 import { useContext, useEffect } from 'react';
-import HomeSectionBlock from '../components/blocks/HomeSectionBlock';
-import { ProviderContext } from '../providers/Provider';
+import HomeSectionBlock from '../blocks/HomeSectionBlock';
+import { ProviderContext } from '../../providers/Provider';
 
 export default function BlocksBuilder({ info }: { info: any }) {
 	const { sections, skillCategories } = info;
