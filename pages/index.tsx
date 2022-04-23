@@ -1,4 +1,4 @@
-import { Flex, Grid, GridItem, IconButton, Text } from '@chakra-ui/react';
+import { Flex, Grid, GridItem, Icon, IconButton, Text } from '@chakra-ui/react';
 import Head from 'next/head';
 import client from '../queries/apollo-client';
 import queries from '../queries/queries';
@@ -51,11 +51,12 @@ const Home = ({ sections, socialMedias }: HomeProps) => {
 							aria-label="Menu"
 							variant="skeuomorphism"
 							sx={{ '.menu-icon': { color: 'primary.500' } }}
-							size="lg"
+							boxSize={12}
 							icon={
-								<HiOutlineMenuAlt1
+								<Icon
+									as={HiOutlineMenuAlt1}
 									className="menu-icon"
-									size={24}
+									boxSize={6}
 									style={{ transform: 'scaleX(-1)' }}
 								/>
 							}
