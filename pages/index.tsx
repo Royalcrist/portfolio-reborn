@@ -1,6 +1,6 @@
 import { Flex, Grid, GridItem, IconButton, Text } from '@chakra-ui/react';
 import Head from 'next/head';
-import client from '../lib/apollo-client';
+import client from '../queries/apollo-client';
 import queries from '../queries/queries';
 import { HiOutlineMenuAlt1 } from 'react-icons/hi';
 import BlocksBuilder from '../components/builders/BlocksBuilder';

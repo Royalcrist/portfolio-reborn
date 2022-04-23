@@ -8,7 +8,7 @@ import {
 	Text,
 	VStack,
 } from '@chakra-ui/react';
-import { apiBase, capitalizeFirstLetter } from '../../helpers/helpers';
+import { apiBase, capitalizeFirstLetter } from '../../lib/helpers';
 import Image from 'next/image';
 import Link from 'next/link';
 
