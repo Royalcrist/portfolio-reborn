@@ -1,9 +1,10 @@
-import { Flex, Grid, GridItem, Icon, IconButton, Text } from '@chakra-ui/react';
+import { Grid, GridItem } from '@chakra-ui/react';
 import Head from 'next/head';
 import client from '../queries/apollo-client';
 import queries from '../queries/queries';
-import { HiOutlineMenuAlt1 } from 'react-icons/hi';
 import BlocksBuilder from '../components/builders/BlocksBuilder';
+import useVh from '../hooks/useVh';
+import Navbar from '../components/layouts/Navbar';
 
 interface HomeProps {
 	sections: any;
@@ -11,6 +12,10 @@ interface HomeProps {
 }
 
 const Home = ({ sections, socialMedias }: HomeProps) => {
+	const { vh } = useVh();
+
+	// console.log(sections);
+
 	return (
 		<>
 			<Head>
@@ -22,46 +27,11 @@ const Home = ({ sections, socialMedias }: HomeProps) => {
 				templateColumns="1fr"
 				templateRows="auto 1fr"
 				templateAreas='"header" "body"'
-				height="100vh"
+				height={vh(100)}
+				width="100vw"
 			>
 				<GridItem area="header">
-					<Flex
-						direction="row"
-						alignItems="center"
-						justifyContent="space-between"
-						paddingTop={6}
-						paddingX={4}
-						paddingBottom={2}
-					>
-						<Flex direction="row" alignItems="baseline">
-							<Text fontSize="2xl" fontWeight="bold" color="primary.900">
-								Cristian
-							</Text>
-							<Text
-								fontWeight="bold"
-								color="accent.blue"
-								fontSize="4xl"
-								lineHeight="normal"
-							>
-								.
-							</Text>
-						</Flex>
-
-						<IconButton
-							aria-label="Menu"
-							variant="skeuomorphism"
-							sx={{ '.menu-icon': { color: 'primary.500' } }}
-							boxSize={12}
-							icon={
-								<Icon
-									as={HiOutlineMenuAlt1}
-									className="menu-icon"
-									boxSize={6}
-									style={{ transform: 'scaleX(-1)' }}
-								/>
-							}
-						/>
-					</Flex>
+					<Navbar />
 				</GridItem>
 				<GridItem
 					area="body"
@@ -77,18 +47,21 @@ const Home = ({ sections, socialMedias }: HomeProps) => {
 };
 
 export async function getServerSideProps({ locale }: any) {
-	const { data } = await client.query({
-		query: queries('HOME', locale),
+	const { data, error } = await client.query({
+		query: queries(['HOME', 'SOCIAL_MEDIA']),
+		variables: {
+			locale,
+		},
 	});
 
-	const { data: socialData } = await client.query({
-		query: queries('SOCIAL_MEDIA', locale),
-	});
+	if (error) {
+		console.log(error);
+	}
 
 	return {
 		props: {
 			...data.home,
-			socialMedias: socialData.socialMedias,
+			socialMedias: data.socialMedias,
 		},
 	};
 }

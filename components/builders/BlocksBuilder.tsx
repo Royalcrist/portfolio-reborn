@@ -8,12 +8,11 @@
 import { useRouter } from 'next/router';
 import { useContext, useEffect } from 'react';
 import HomeSectionBlock from '../blocks/HomeSectionBlock';
+import ProjectSectionBlock from '../blocks/ProjectSectionBlock';
 import { ProviderContext } from '../../providers/Provider';
 
 export default function BlocksBuilder({ info }: { info: any }) {
 	const { sections, skillCategories } = info;
-	const { blockBuilderDispatch } = useContext(ProviderContext);
-	const { locale } = useRouter();
 
 	return (
 		<>
@@ -25,9 +24,13 @@ export default function BlocksBuilder({ info }: { info: any }) {
 					ComponentPagesHomeSection: (
 						<HomeSectionBlock id={section.id} key={section.id} {...section} />
 					),
-					// ComponentPagesHomeProjectSection: (
-					// 	<HomeProjectsBlock id={section.id} key={section.id} {...section} />
-					// ),
+					ComponentPagesHomeProjectSection: (
+						<ProjectSectionBlock
+							id={section.id}
+							key={section.id}
+							{...section}
+						/>
+					),
 					// TODO Apply the new design
 					// ComponentPagesTimeline: (
 					// 	<TimelineBlock key={section.id} {...section} />

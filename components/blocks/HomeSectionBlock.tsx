@@ -11,6 +11,7 @@ import {
 import { apiBase, capitalizeFirstLetter } from '../../lib/helpers';
 import Image from 'next/image';
 import Link from 'next/link';
+import useVh from '../../hooks/useVh';
 
 interface HomeSectionBlockProps {
 	id: string;
@@ -33,7 +34,10 @@ const HomeSectionBlock = ({
 	actionText,
 	color,
 	contactLinks,
+	url,
 }: HomeSectionBlockProps) => {
+	const { vh } = useVh();
+
 	return (
 		<Grid
 			templateColumns={{ base: '1fr' }}
@@ -44,7 +48,11 @@ const HomeSectionBlock = ({
 			overflow="hidden"
 			gap={12}
 			paddingTop={{
-				base: '4vh',
+				base: vh(4),
+			}}
+			paddingBottom={{
+				base: '1px',
+				sm: 0,
 			}}
 		>
 			<GridItem alignSelf="center">
@@ -54,10 +62,12 @@ const HomeSectionBlock = ({
 						<Heading size="2xl">{title}</Heading>
 						{description && <Text>{description}</Text>}
 					</Box>
-					{actionText && (
-						<Button variant={`solid${capitalizeFirstLetter(color.name)}`}>
-							{actionText.title}
-						</Button>
+					{actionText && url && (
+						<Link href={url} passHref>
+							<Button variant={`solid${capitalizeFirstLetter(color.name)}`}>
+								{actionText.title}
+							</Button>
+						</Link>
 					)}
 					<VStack gap={1} width="100%">
 						{contactLinks &&
