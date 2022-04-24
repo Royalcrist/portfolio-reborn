@@ -1,7 +1,7 @@
 import { Flex, Icon, IconButton, Text } from '@chakra-ui/react';
 import { HiOutlineMenuAlt1 } from 'react-icons/hi';
 
-const Navbar = () => {
+const Navbar = ({ color }: { color: any }) => {
 	return (
 		<Flex
 			direction="row"
@@ -17,7 +17,7 @@ const Navbar = () => {
 				</Text>
 				<Text
 					fontWeight="bold"
-					color="accent.blue"
+					color={`accent.${color}`}
 					fontSize="5xl"
 					lineHeight="normal"
 				>
