@@ -1,4 +1,4 @@
-import { RefObject, useCallback, useContext, useEffect, useState } from 'react';
+import { RefObject, useContext, useEffect, useState } from 'react';
 import { generateUuid } from '../lib/helpers';
 import { ProviderContext } from '../providers/Provider';
 
@@ -26,8 +26,16 @@ const useIsVisibleInit = (ref: RefObject<HTMLDivElement>) => {
 		});
 	}, [isRefUpdating, ref]);
 
-	const observerCallback: IntersectionObserverCallback = useCallback(
-		entries => {
+	useEffect(() => {
+		if (!ref.current) return;
+
+		const observerOptions: IntersectionObserverInit = {
+			root: ref.current,
+			rootMargin: '0px',
+			threshold: 0.5,
+		};
+
+		const observerCallback: IntersectionObserverCallback = entries => {
 			entries.forEach(entry => {
 				if (entry.isIntersecting) {
 					const element: HTMLElement = entry.target as HTMLElement;
@@ -41,17 +49,6 @@ const useIsVisibleInit = (ref: RefObject<HTMLDivElement>) => {
 					});
 				}
 			});
-		},
-		[isVisibleDispatch],
-	);
-
-	useEffect(() => {
-		if (!ref.current) return;
-
-		const observerOptions: IntersectionObserverInit = {
-			root: ref.current,
-			rootMargin: '0px',
-			threshold: 0.5,
 		};
 
 		var observer = new IntersectionObserver(observerCallback, observerOptions);
@@ -71,7 +68,7 @@ const useIsVisibleInit = (ref: RefObject<HTMLDivElement>) => {
 		});
 
 		if (isRefUpdating) setIsRefUpdating(false);
-	}, [isRefUpdating, isVisibleDispatch, observerCallback, ref]);
+	}, [isRefUpdating, isVisibleDispatch, ref]);
 };
 
 export default useIsVisibleInit;
