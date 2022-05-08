@@ -39,7 +39,7 @@ function getQuery(dispatcher: string) {
 				... on ComponentPagesHomeSection {
 					__typename
 					id
-					linkId: link_id
+					linkTitle: link_title
 					title
 					upperTitle
 					description
@@ -81,7 +81,8 @@ function getQuery(dispatcher: string) {
 				... on ComponentPagesHomeProjectSection {
 					__typename
 					id
-					auto_scroll
+					linkTitle: link_title
+					autoScroll: auto_scroll
 				}
 			}
 		}

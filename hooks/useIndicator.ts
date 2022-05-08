@@ -6,8 +6,8 @@ export default function useIndicator(
 	scrollParts = 3,
 	tolerance = 1,
 ) {
-	const [index, setIndex] = useState(1);
-	const prev = usePrev(index);
+	const [index, setIndex] = useState(0);
+	const prev = usePrev(0);
 
 	function handleIndicator(newScroll: number) {
 		let indexValue = 1;
@@ -26,7 +26,7 @@ export default function useIndicator(
 			indexValue++;
 		}
 
-		return indexValue;
+		return indexValue - 1;
 	}
 
 	useEffect(() => {

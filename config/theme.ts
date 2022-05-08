@@ -79,6 +79,11 @@ const Button: StyleConfig = {
 			background: 'primary.10',
 			color: 'primary.500',
 		},
+		solidWhite: {
+			...solidButton,
+			background: 'secondary.900',
+			color: 'primary.500',
+		},
 		solidBlue: {
 			...solidButton,
 			background: 'linear-gradient(-135deg, #00ffcc, #1f77ff)',
@@ -94,6 +99,9 @@ const Button: StyleConfig = {
 		solidRed: {
 			...solidButton,
 			background: 'linear-gradient(-135deg, #ff7167, #ff2810)',
+		},
+		ghost: {
+			color: 'primary.500',
 		},
 	},
 };

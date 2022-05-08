@@ -10,27 +10,37 @@ import { useContext, useEffect } from 'react';
 import HomeSectionBlock from '../blocks/HomeSectionBlock';
 import ProjectSectionBlock from '../blocks/ProjectSectionBlock';
 import { ProviderContext } from '../../providers/Provider';
+import { getSectionId } from '../../lib/helpers';
 
-export default function BlocksBuilder({ info }: { info: any }) {
+export default function BlocksBuilder({
+	info,
+	currentSection,
+}: {
+	info: any;
+	currentSection: string;
+}) {
 	const { sections, skillCategories } = info;
 
 	return (
 		<>
 			{sections.map((section: any) => {
+				const id = getSectionId(section);
+
 				const sectionElements: any = {
 					// ComponentPagesParagraph: (
 					// 	<ParagraphBlock id={section.id} key={section.id} {...section} />
 					// ),
 					ComponentPagesHomeSection: (
-						<HomeSectionBlock id={section.id} key={section.id} {...section} />
-					),
-					ComponentPagesHomeProjectSection: (
-						<ProjectSectionBlock
-							id={section.id}
-							key={section.id}
+						<HomeSectionBlock
 							{...section}
+							id={id}
+							key={section.id}
+							currentSection={currentSection}
 						/>
 					),
+					// ComponentPagesHomeProjectSection: (
+					// 	<ProjectSectionBlock {...section} id={id} key={section.id} />
+					// ),
 					// TODO Apply the new design
 					// ComponentPagesTimeline: (
 					// 	<TimelineBlock key={section.id} {...section} />

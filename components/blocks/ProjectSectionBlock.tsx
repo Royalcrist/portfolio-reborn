@@ -24,10 +24,11 @@ import { useEffect } from 'react';
 import { HiChevronLeft, HiChevronRight } from 'react-icons/hi';
 
 interface ProjectSectionBlockProps {
+	id: string;
 	autoScroll?: boolean;
 }
 
-const ProjectSectionBlock = ({ autoScroll }: ProjectSectionBlockProps) => {
+const ProjectSectionBlock = ({ id, autoScroll }: ProjectSectionBlockProps) => {
 	const { vh } = useVh();
 	const { setColor } = useContext(ProviderContext);
 	const [index, setIndex] = useState(0);
@@ -71,7 +72,6 @@ const ProjectSectionBlock = ({ autoScroll }: ProjectSectionBlockProps) => {
 
 	const projects = data.projects;
 	const {
-		id,
 		name,
 		description,
 		homepageImage: image,
@@ -96,6 +96,7 @@ const ProjectSectionBlock = ({ autoScroll }: ProjectSectionBlockProps) => {
 
 	return (
 		<Grid
+			id={id}
 			templateColumns={{ base: '1fr' }}
 			templateRows={{ base: '1fr 1fr' }}
 			height="100%"
