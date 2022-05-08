@@ -1,5 +1,3 @@
-import theme from './theme';
-
 const skeuomorphismBackground: any = {
 	backgroundColor: 'primary.10',
 	border: '1px solid',

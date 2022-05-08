@@ -1,15 +1,5 @@
-// TODO: remove after review
-// import ParagraphBlock from '../blocks/ParagraphBlock';
-// import HomeSectionBlock from '../blocks/HomeSectionBlock';
-// import HomeProjectsBlock from '../blocks/HomeProjectsBlock';
-// import TimelineBlock from '../blocks/TimelineBlock';
-// import SkillsBlock from '../blocks/SkillsBlock';
-
-import { useRouter } from 'next/router';
-import { useContext, useEffect } from 'react';
 import HomeSectionBlock from '../blocks/HomeSectionBlock';
 import ProjectSectionBlock from '../blocks/ProjectSectionBlock';
-import { ProviderContext } from '../../providers/Provider';
 import { getSectionId } from '../../lib/helpers';
 
 export default function BlocksBuilder({ info }: { info: any }) {

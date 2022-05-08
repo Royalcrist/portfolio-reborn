@@ -12,9 +12,6 @@ import { apiBase, capitalizeFirstLetter } from '../../lib/helpers';
 import Image from 'next/image';
 import Link from 'next/link';
 import useVh from '../../hooks/useVh';
-import { useContext, useEffect, useRef, useState } from 'react';
-import { ProviderContext } from '../../providers/Provider';
-import useIsVisible from '../../hooks/useIsVisible';
 import useManagePageColor from '../../hooks/useManagePageColor';
 
 interface HomeSectionBlockProps {

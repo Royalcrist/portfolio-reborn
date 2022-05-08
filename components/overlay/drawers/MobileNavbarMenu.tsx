@@ -12,10 +12,10 @@ import {
 	IconButton,
 } from '@chakra-ui/react';
 import Link from 'next/link';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { HiX } from 'react-icons/hi';
 import { skeuomorphismBackground } from '../../../config/classes';
-import { getSectionId, stringToSlug } from '../../../lib/helpers';
+import { getSectionId } from '../../../lib/helpers';
 import { ProviderContext } from '../../../providers/Provider';
 
 interface MobileNavbarMenuProps {
