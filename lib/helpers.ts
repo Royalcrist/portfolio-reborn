@@ -28,3 +28,11 @@ export function getSectionId(section: any): string {
 
 	return stringToSlug(section.linkTitle) || section.id;
 }
+
+export function generateUuid() {
+	return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+		const r = (Math.random() * 16) | 0,
+			v = c == 'x' ? r : (r & 0x3) | 0x8;
+		return v.toString(16);
+	});
+}

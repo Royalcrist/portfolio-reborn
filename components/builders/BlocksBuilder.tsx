@@ -12,13 +12,7 @@ import ProjectSectionBlock from '../blocks/ProjectSectionBlock';
 import { ProviderContext } from '../../providers/Provider';
 import { getSectionId } from '../../lib/helpers';
 
-export default function BlocksBuilder({
-	info,
-	currentSection,
-}: {
-	info: any;
-	currentSection: string;
-}) {
+export default function BlocksBuilder({ info }: { info: any }) {
 	const { sections, skillCategories } = info;
 
 	return (
@@ -31,16 +25,11 @@ export default function BlocksBuilder({
 					// 	<ParagraphBlock id={section.id} key={section.id} {...section} />
 					// ),
 					ComponentPagesHomeSection: (
-						<HomeSectionBlock
-							{...section}
-							id={id}
-							key={section.id}
-							currentSection={currentSection}
-						/>
+						<HomeSectionBlock {...section} id={id} key={section.id} />
 					),
-					// ComponentPagesHomeProjectSection: (
-					// 	<ProjectSectionBlock {...section} id={id} key={section.id} />
-					// ),
+					ComponentPagesHomeProjectSection: (
+						<ProjectSectionBlock {...section} id={id} key={section.id} />
+					),
 					// TODO Apply the new design
 					// ComponentPagesTimeline: (
 					// 	<TimelineBlock key={section.id} {...section} />

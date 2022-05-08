@@ -12,23 +12,25 @@ import {
 	IconButton,
 } from '@chakra-ui/react';
 import Link from 'next/link';
+import { useContext, useEffect } from 'react';
 import { HiX } from 'react-icons/hi';
 import { skeuomorphismBackground } from '../../../config/classes';
 import { getSectionId, stringToSlug } from '../../../lib/helpers';
+import { ProviderContext } from '../../../providers/Provider';
 
 interface MobileNavbarMenuProps {
 	isOpen: boolean;
 	onClose: () => void;
 	sections: any;
-	currentSection: any;
 }
 
 const MobileNavbarMenu = ({
 	isOpen,
 	onClose,
 	sections,
-	currentSection,
 }: MobileNavbarMenuProps) => {
+	const { isVisibleState } = useContext(ProviderContext);
+
 	return (
 		<Drawer isOpen={isOpen} onClose={onClose} size="full">
 			<DrawerOverlay />
@@ -59,7 +61,9 @@ const MobileNavbarMenu = ({
 								{...skeuomorphismBackground}
 							>
 								{sections.map((section: any) => {
-									const isSelected = section.id === currentSection?.id;
+									const isSelected =
+										getSectionId(section) ===
+										isVisibleState?.currentElement?.id;
 
 									return (
 										<Link

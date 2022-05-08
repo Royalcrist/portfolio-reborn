@@ -8,16 +8,13 @@ import {
 	Text,
 	VStack,
 } from '@chakra-ui/react';
-import {
-	apiBase,
-	capitalizeFirstLetter,
-	getSectionId,
-} from '../../lib/helpers';
+import { apiBase, capitalizeFirstLetter } from '../../lib/helpers';
 import Image from 'next/image';
 import Link from 'next/link';
 import useVh from '../../hooks/useVh';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { ProviderContext } from '../../providers/Provider';
+import useIsVisible from '../../hooks/useIsVisible';
 
 interface HomeSectionBlockProps {
 	id: string;
@@ -30,7 +27,6 @@ interface HomeSectionBlockProps {
 	upperTitle?: string;
 	url?: string;
 	contactLinks?: any[];
-	currentSection?: string;
 }
 
 const HomeSectionBlock = ({
@@ -43,18 +39,11 @@ const HomeSectionBlock = ({
 	color,
 	contactLinks,
 	url,
-	currentSection,
 }: HomeSectionBlockProps) => {
 	const { vh } = useVh();
 
 	const ref = useRef<HTMLDivElement>(null);
-	const [isVisible, setIsVisible] = useState(false);
-
-	useEffect(() => {
-		if (!ref.current) return;
-		setIsVisible(ref.current.dataset.isElementVisibleId == currentSection);
-	}, [ref, currentSection]);
-
+	const isVisible = useIsVisible(ref);
 	const { setColor } = useContext(ProviderContext);
 
 	useEffect(() => {

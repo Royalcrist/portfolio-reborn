@@ -15,13 +15,14 @@ import { apiBase, capitalizeFirstLetter } from '../../lib/helpers';
 import Image from 'next/image';
 import Link from 'next/link';
 import useVh from '../../hooks/useVh';
-import { useContext, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { ProviderContext } from '../../providers/Provider';
 import { useQuery } from '@apollo/client/react';
 import queries from '../../queries/queries';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { HiChevronLeft, HiChevronRight } from 'react-icons/hi';
+import useIsVisible from '../../hooks/useIsVisible';
 
 interface ProjectSectionBlockProps {
 	id: string;
@@ -30,7 +31,7 @@ interface ProjectSectionBlockProps {
 
 const ProjectSectionBlock = ({ id, autoScroll }: ProjectSectionBlockProps) => {
 	const { vh } = useVh();
-	const { setColor } = useContext(ProviderContext);
+
 	const [index, setIndex] = useState(0);
 	const [projectCount, setProjectCount] = useState(0);
 	const { locale } = useRouter();
@@ -56,21 +57,6 @@ const ProjectSectionBlock = ({ id, autoScroll }: ProjectSectionBlockProps) => {
 		}
 	}, [data, loading]);
 
-	if (loading) {
-		return (
-			<Flex
-				height="100%"
-				alignItems="center"
-				justifyContent="center"
-				scrollSnapAlign="start"
-				scrollSnapStop="always"
-			>
-				<Spinner size="xl" color="primary.500" />
-			</Flex>
-		);
-	}
-
-	const projects = data.projects;
 	const {
 		name,
 		description,
@@ -80,7 +66,7 @@ const ProjectSectionBlock = ({ id, autoScroll }: ProjectSectionBlockProps) => {
 		commingSoon,
 		commingSoonText,
 		slug,
-	} = projects[index];
+	} = data?.projects[index] || {};
 
 	const handlePrev = () => {
 		if (index > 0) {
@@ -94,8 +80,29 @@ const ProjectSectionBlock = ({ id, autoScroll }: ProjectSectionBlockProps) => {
 		}
 	};
 
-	return (
+	const ref = useRef<HTMLDivElement>(null);
+	const isVisible = useIsVisible(ref);
+	const { setColor } = useContext(ProviderContext);
+
+	useEffect(() => {
+		if (isVisible && color && color.name) {
+			setColor(color.name);
+		}
+	}, [color, isVisible, setColor]);
+
+	return loading ? (
+		<Flex
+			height="100%"
+			alignItems="center"
+			justifyContent="center"
+			scrollSnapAlign="start"
+			scrollSnapStop="always"
+		>
+			<Spinner size="xl" color="primary.500" />
+		</Flex>
+	) : (
 		<Grid
+			ref={ref}
 			id={id}
 			templateColumns={{ base: '1fr' }}
 			templateRows={{ base: '1fr 1fr' }}

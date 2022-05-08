@@ -5,10 +5,10 @@ import MobileNavbarMenu from '../overlay/drawers/MobileNavbarMenu';
 interface NavbarProps {
 	colorName: string;
 	sections: any;
-	currentSection?: any;
+	currentSectionId?: string;
 }
 
-const Navbar = ({ colorName, sections, currentSection }: NavbarProps) => {
+const Navbar = ({ colorName, sections, currentSectionId }: NavbarProps) => {
 	const { isOpen, onClose, onOpen } = useDisclosure();
 
 	return (
@@ -51,12 +51,7 @@ const Navbar = ({ colorName, sections, currentSection }: NavbarProps) => {
 					}
 				/>
 			</Flex>
-			<MobileNavbarMenu
-				isOpen={isOpen}
-				onClose={onClose}
-				sections={sections}
-				currentSection={sections[0]}
-			/>
+			<MobileNavbarMenu isOpen={isOpen} onClose={onClose} sections={sections} />
 		</>
 	);
 };
