@@ -15,14 +15,13 @@ import { apiBase, capitalizeFirstLetter } from '../../lib/helpers';
 import Image from 'next/image';
 import Link from 'next/link';
 import useVh from '../../hooks/useVh';
-import { useContext, useRef, useState } from 'react';
-import { ProviderContext } from '../../providers/Provider';
+import { useState } from 'react';
 import { useQuery } from '@apollo/client/react';
 import queries from '../../queries/queries';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { HiChevronLeft, HiChevronRight } from 'react-icons/hi';
-import useIsVisible from '../../hooks/useIsVisible';
+import useManagePageColor from '../../hooks/useManagePageColor';
 
 interface ProjectSectionBlockProps {
 	id: string;
@@ -32,13 +31,8 @@ interface ProjectSectionBlockProps {
 const ProjectSectionBlock = ({ id, autoScroll }: ProjectSectionBlockProps) => {
 	const { vh } = useVh();
 
-	const [index, setIndex] = useState(0);
-	const [projectCount, setProjectCount] = useState(0);
 	const { locale } = useRouter();
-	const [isImageLoading, setIsImageLoading] = useState(true);
-
 	const projectsLimit = 10;
-
 	const { data, loading, error } = useQuery(
 		queries(['PROJECTS_HOME', 'PROJECTS_COUNT']),
 		{
@@ -50,6 +44,12 @@ const ProjectSectionBlock = ({ id, autoScroll }: ProjectSectionBlockProps) => {
 			},
 		},
 	);
+
+	const [isImageLoading, setIsImageLoading] = useState(true);
+
+	// TODO: Take this out
+	const [index, setIndex] = useState(0);
+	const [projectCount, setProjectCount] = useState(0);
 
 	useEffect(() => {
 		if (data && !loading) {
@@ -80,15 +80,7 @@ const ProjectSectionBlock = ({ id, autoScroll }: ProjectSectionBlockProps) => {
 		}
 	};
 
-	const ref = useRef<HTMLDivElement>(null);
-	const isVisible = useIsVisible(ref);
-	const { setColor } = useContext(ProviderContext);
-
-	useEffect(() => {
-		if (isVisible && color && color.name) {
-			setColor(color.name);
-		}
-	}, [color, isVisible, setColor]);
+	const ref = useManagePageColor(color?.name);
 
 	return loading ? (
 		<Flex

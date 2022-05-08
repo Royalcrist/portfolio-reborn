@@ -15,6 +15,7 @@ import useVh from '../../hooks/useVh';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { ProviderContext } from '../../providers/Provider';
 import useIsVisible from '../../hooks/useIsVisible';
+import useManagePageColor from '../../hooks/useManagePageColor';
 
 interface HomeSectionBlockProps {
 	id: string;
@@ -42,15 +43,7 @@ const HomeSectionBlock = ({
 }: HomeSectionBlockProps) => {
 	const { vh } = useVh();
 
-	const ref = useRef<HTMLDivElement>(null);
-	const isVisible = useIsVisible(ref);
-	const { setColor } = useContext(ProviderContext);
-
-	useEffect(() => {
-		if (isVisible) {
-			setColor(color.name);
-		}
-	}, [color.name, isVisible, setColor]);
+	const ref = useManagePageColor(color.name);
 
 	return (
 		<Grid
