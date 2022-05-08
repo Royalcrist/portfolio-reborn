@@ -54,7 +54,7 @@ const Home = ({ sections, socialMedias, projects }: HomeProps) => {
 	);
 };
 
-export async function getServerSideProps({ locale }: any) {
+export async function getStaticProps({ locale }: any) {
 	const { data, error } = await client.query({
 		query: queries(['HOME', 'PROJECTS_HOME', 'SOCIAL_MEDIA']),
 		variables: {

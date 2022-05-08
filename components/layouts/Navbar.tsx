@@ -5,10 +5,9 @@ import MobileNavbarMenu from '../overlay/drawers/MobileNavbarMenu';
 interface NavbarProps {
 	colorName: string;
 	sections: any;
-	currentSectionId?: string;
 }
 
-const Navbar = ({ colorName, sections, currentSectionId }: NavbarProps) => {
+const Navbar = ({ colorName, sections }: NavbarProps) => {
 	const { isOpen, onClose, onOpen } = useDisclosure();
 
 	return (

@@ -20,7 +20,6 @@ const useIsVisibleInit = (ref: RefObject<HTMLDivElement>) => {
 		const observer = new MutationObserver(observerCallback);
 
 		observer.observe(ref.current as Node, {
-			attributes: true,
 			childList: true,
 			subtree: true,
 		});
